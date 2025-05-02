@@ -1,4 +1,4 @@
-* [Getting Started](getting-started.md)
-* [Integration Guide](integration.md)
-* [Best Practices](best-practices.md)
-* [Troubleshooting](troubleshooting.md) 
+* [Getting Started](getting-started)
+* [Integration Guide](integration)
+* [Best Practices](best-practices)
+* [Troubleshooting](troubleshooting) 
