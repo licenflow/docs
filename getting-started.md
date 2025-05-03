@@ -53,6 +53,6 @@ curl -X GET https://api.licenflow.com/v1/licenses/validate \
 - Handle token errors
 
 ## Next Steps
-- Learn about [License Validation](../guides/integration.md#license-validation)
-- Review [Error Handling](../guides/troubleshooting.md#error-handling)
-- Check [Best Practices](../guides/best-practices.md) for secure implementation 
+- Learn about [License Validation](integration.md#license-validation)
+- Review [Error Handling](troubleshooting.md#error-handling)
+- Check [Best Practices](best-practices.md) for secure implementation 
