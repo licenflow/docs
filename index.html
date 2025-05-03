@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="light">
 <head>
   <meta charset="UTF-8">
   <title>LicenFlow Docs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Documentation for License management with 
-  Licenflow.com">
-  <!--<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">-->
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/dark.css">
+  <meta name="description" content="Documentation for License management with Licenflow.com">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- DaisyUI -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+  
+  <!-- Docsify -->
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  
   <style>
     /* Estilos para mejorar la visibilidad del sidebar en móvil */
     @media screen and (max-width: 768px) {
@@ -22,35 +29,35 @@
       
       .sidebar-toggle {
         display: block !important;
-        /*background-color: #42b983;*/
+        background-color: #f3860b;
         border-radius: 5%;
-        width: 40px;
+        width: 40px !important;
         height: 40px;
         padding: 0;
         position: fixed;
-        top: 20px;
+        top: 80px;
         right: 20px;
         z-index: 1001;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       }
       
       .sidebar-toggle span {
-        background-color: white;
+        background-color: #f3860b;
         width: 20px;
-        height: 2px;
+        height: 10px;
         margin: 0 auto;
         display: block;
         position: relative;
-        top: 19px;
+        top: 0px;
       }
       
       .sidebar-toggle span:before,
       .sidebar-toggle span:after {
         content: '';
         position: absolute;
-        background-color: white;
+        background-color: #f3860b;
         width: 20px;
-        height: 2px;
+        height: 20px;
         left: 0;
       }
       
@@ -64,7 +71,7 @@
       
       .content {
         margin-left: 0 !important;
-        padding-top: 60px;
+        padding-top: 20px;
       }
       
       .app-nav {
@@ -74,10 +81,56 @@
   </style>
 </head>
 <body>
+  <!-- Nueva cabecera -->
+  <div class="text-base-content sticky top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-shadow duration-100 [transform:translate3d(0,0,0)] shadow-sm" style="padding-top: 8px;">
+    <div class="navbar-start">
+      <div class="flex-1">
+        <a href="#" class="btn btn-ghost normal-case text-xl">
+          <div class="flex items-center">
+            <!-- Logo SVG con la L -->
+            <svg aria-hidden="true" class="h-12 w-12" viewBox="0 0 72 53">
+              <path d="M35,5 L35,40 L65,40" fill="none" stroke="#181a2a" stroke-width="6" stroke-linecap="round"></path>
+              <circle cx="55" cy="25" r="12" fill="#FCD34D" stroke="#1F2937" stroke-width="2"></circle>
+              <path d="M50,25 L53,28 L60,21" fill="none" stroke="#1F2937" stroke-width="2" stroke-linecap="round"></path>
+            </svg>
+            <!-- Texto visible -->
+            <span class="text-3xl font-bold">icenFlow</span>
+            <!-- Texto completo para SEO (hidden visually) -->
+            <span class="sr-only">LicenFlow - Software License Management</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal px-1 text-lg">
+        <li><a href="http://licenflow.com/#solution">Solution</a></li>
+        <li><a href="licenflow.com/#pricing">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="navbar-end text-right pr-6 pt-1 lg:flex">
+      <a class="btn btn-warning mr-0 btn-sm m-1 font-normal" href="#pricing">Start Free</a>
+    </div>
+ <!--   <div class="dropdown lg:hidden bg-base-200 pt-2">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+      </div>
+      <ul tabindex="0"
+          class="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow right-0">
+          <li><a href="#solution">Solution</a></li>
+
+          <li><a href="#pricing">Pricing</a></li>
+      </ul>
+  </div>-->
+
+  </div>
+
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: 'LicenFlow',
+      name: 'Docs',
       basePath: '/',
       loadSidebar: true,
       subMaxLevel: 2,
@@ -88,9 +141,18 @@
       notFoundPage: true,
       coverpage: false,
       maxLevel: 3,
-      loadNavbar: false
+      loadNavbar: false,
+      themeColor: 'outline-color: oklch(0.77 0.16 79.76);',
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: 'Search',
+        noData: 'No Results!',
+        depth: 3
+      }
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 </body>
 </html>
