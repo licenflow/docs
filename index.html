@@ -5,6 +5,69 @@
   <title>LicenFlow Docs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <style>
+    /* Estilos para mejorar la visibilidad del sidebar en móvil */
+    @media screen and (max-width: 768px) {
+      .sidebar {
+        width: 80% !important;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+        background: #fff;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      }
+      
+      .sidebar-toggle {
+        display: block !important;
+        background-color: #42b983;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1001;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      }
+      
+      .sidebar-toggle span {
+        background-color: white;
+        width: 20px;
+        height: 2px;
+        margin: 0 auto;
+        display: block;
+        position: relative;
+        top: 19px;
+      }
+      
+      .sidebar-toggle span:before,
+      .sidebar-toggle span:after {
+        content: '';
+        position: absolute;
+        background-color: white;
+        width: 20px;
+        height: 2px;
+        left: 0;
+      }
+      
+      .sidebar-toggle span:before {
+        top: -6px;
+      }
+      
+      .sidebar-toggle span:after {
+        bottom: -6px;
+      }
+      
+      .content {
+        margin-left: 0 !important;
+      }
+      
+      .app-nav {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
   <div id="app"></div>
