@@ -25,7 +25,10 @@
 - Handle different validation scenarios
 - Manage validation responses
 
-### 3. Usage Tracking
+### 3. License Activation & Deactivation
+- After validating a license, you may want to control which devices or users are actively using it. LicenFlow provides endpoints to activate (register) and deactivate (release) license instances. This is essential for controlling how many devices/users can use a license simultaneously, and for letting end users or your customers manage their own activations.
+
+### 4. Usage Tracking
 - Set up usage reporting
 - Implement usage limits
 - Handle usage restrictions
@@ -258,3 +261,81 @@ The response will include the updated license:
 ```
 
 > **Note:** You must include a valid access token in the Authorization header for all API requests. 
+
+## License Activation & Deactivation
+
+After validating a license, you may want to control which devices or users are actively using it. LicenFlow provides endpoints to activate (register) and deactivate (release) license instances. This is essential for controlling how many devices/users can use a license simultaneously, and for letting end users or your customers manage their own activations.
+
+### Purpose
+License activation allows you to register ("activate") a license on a specific device or instance, and deactivation allows you to release that activation. Each activation is tracked as an "instance". You can view and manage all active instances for a license from the LicenFlow portal, and you can also deactivate (disconnect) any instance via the API or the portal. This gives your customers full control over their license usage.
+
+> **Note:** The maximum number of allowed activations (instance limit) is configurable both via the API and from the LicenFlow portal. This allows you to adjust the limit according to your business needs.
+
+### Activate a License Instance
+
+**Endpoint:**
+```
+POST /api/licenses/activate
+```
+
+**Headers:**
+```
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json
+```
+
+**Request body:**
+```json
+{
+  "license_key": "XXXX-XXXX-XXXX-XXXX",
+  "product": "Your Product Name",
+  "instance_name": "My_PC"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "License successfully activated on instance My_PC",
+  "instance_id": "b57a5945a033986448567f93219d46be"
+}
+```
+
+### Deactivate a License Instance
+
+**Endpoint:**
+```
+POST /api/licenses/deactivate
+```
+
+**Headers:**
+```
+Authorization: Bearer YOUR_API_KEY
+Content-Type: application/json
+```
+
+**Request body:**
+```json
+{
+  "license_key": "XXXX-XXXX-XXXX-XXXX",
+  "instance_id": "b57a5945a033986448567f93219d46be"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "License successfully deactivated on this instance."
+}
+```
+
+### Instance Control
+- Each activation is tracked as an instance.
+- You can view and manage all active instances for a license from the LicenFlow portal.
+- You can deactivate (disconnect) any instance via the API or the portal.
+- Both your end users (from your software) and your customers (from their own scripts or integrations) can use these endpoints to manage activations.
+- You can also manage activations manually from the LicenFlow portal.
+
+**Best practice:** Always deactivate an instance when uninstalling or moving your software to a new device, to free up activations for other devices. 
