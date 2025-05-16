@@ -91,9 +91,9 @@ client.validateLicense('your_license_key')
 ```
 
 ## Next Steps
-- Review [API Documentation](../api/overview.md) for detailed endpoint information
-- Check [Best Practices](../guides/best-practices.md) for integration recommendations
-- Consult [Troubleshooting Guide](../guides/troubleshooting.md) for error handling and common issues
+- Review [API Documentation](overview.md) for detailed endpoint information
+- Check [Best Practices](best-practices.md) for integration recommendations
+- Consult [Troubleshooting Guide](troubleshooting.md) for error handling and common issues
 
 ## Allowed values for Product and License Type
 
