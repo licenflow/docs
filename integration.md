@@ -35,60 +35,207 @@
 
 ## Code Samples
 
-### PHP Example
-```php
-<?php
-$client = new LicenFlowClient([
-    'client_id' => 'your_client_id',
-    'client_secret' => 'your_client_secret'
-]);
+These examples show how to validate a license key in your distributed software. The license key should be provided by your end user.
 
-try {
-    $license = $client->validateLicense('your_license_key');
-    if ($license->isValid()) {
-        // Proceed with application
-    }
-} catch (LicenFlowException $e) {
-    // Handle error
+### REST API (Vanilla JavaScript)
+```javascript
+// Step 1: Get user's license key
+const userLicenseKey = getUserLicenseKey(); 
+const productName = 'Your Product Name';
+const instanceId = generateInstanceId();
+
+// Step 2: Validate the license
+fetch('https://api.licenflow.com/api/v1/validate-license', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    license_key: userLicenseKey,
+    product: productName,
+    instance_id: instanceId
+  })
+})
+.then(res => res.json())
+.then(data => {
+  if (data.valid) {
+    // License is valid - start your application
+    startApplication();
+  } else {
+    // Show error to user
+    showLicenseError(data.message);
+  }
+});
+```
+
+### Node.js
+```javascript
+const axios = require('axios');
+
+// Step 1: Get user's license key
+const userLicenseKey = getUserLicenseKey();
+const productName = 'Your Product Name';
+const instanceId = generateInstanceId();
+
+// Step 2: Validate the license
+const response = await axios.post(
+  'https://api.licenflow.com/api/v1/validate-license',
+  {
+    license_key: userLicenseKey,
+    product: productName,
+    instance_id: instanceId
+  }
+);
+
+if (response.data.valid) {
+  // License is valid - start your application
+  startApplication();
+} else {
+  // Show error to user
+  showLicenseError(response.data.message);
 }
 ```
 
-### Python Example
-```python
-from licenflow import Client
+### PHP
+```php
+<?php
+// Step 1: Prepare the request data
+$userLicenseKey = getUserLicenseKey();
+$productName = 'Your Product Name';
+$instanceId = generateInstanceId();
 
-client = Client(
-    client_id='your_client_id',
-    client_secret='your_client_secret'
+$data = [
+    'license_key' => $userLicenseKey,
+    'product' => $productName,
+    'instance_id' => $instanceId
+];
+
+// Step 2: Validate the license
+$ch = curl_init('https://api.licenflow.com/api/v1/validate-license');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+
+$response = curl_exec($ch);
+$result = json_decode($response, true);
+
+if ($result['valid']) {
+    // License is valid - start your application
+    startApplication();
+} else {
+    // Show error to user
+    showLicenseError($result['message']);
+}
+```
+
+### Python
+```python
+import requests
+
+# Step 1: Prepare the request data
+user_license_key = get_user_license_key()
+product_name = 'Your Product Name'
+instance_id = generate_instance_id()
+
+data = {
+    'license_key': user_license_key,
+    'product': product_name,
+    'instance_id': instance_id
+}
+
+# Step 2: Validate the license
+response = requests.post(
+    'https://api.licenflow.com/api/v1/validate-license',
+    json=data
 )
 
-try:
-    license = client.validate_license('your_license_key')
-    if license.is_valid:
-        # Proceed with application
-except LicenFlowError as e:
-    # Handle error
+result = response.json()
+
+if result['valid']:
+    # License is valid - start your application
+    start_application()
+else:
+    # Show error to user
+    show_license_error(result['message'])
 ```
 
-### JavaScript Example
-```javascript
-const LicenFlow = require('licenflow');
+### Go
+```go
+import (
+    "bytes"
+    "encoding/json"
+    "net/http"
+)
 
-const client = new LicenFlow.Client({
-    clientId: 'your_client_id',
-    clientSecret: 'your_client_secret'
-});
+// Step 1: Prepare the request
+userLicenseKey := getUserLicenseKey()
 
-client.validateLicense('your_license_key')
-    .then(license => {
-        if (license.isValid) {
-            // Proceed with application
-        }
-    })
-    .catch(error => {
-        // Handle error
-    });
+data := map[string]string{
+    "license_key": userLicenseKey,
+    "product":     "Your Product Name",
+    "instance_id": generateInstanceId(),
+}
+
+// Step 2: Validate the license
+jsonData, _ := json.Marshal(data)
+resp, err := http.Post(
+    "https://api.licenflow.com/api/v1/validate-license",
+    "application/json",
+    bytes.NewBuffer(jsonData),
+)
+defer resp.Body.Close()
+
+var result map[string]interface{}
+json.NewDecoder(resp.Body).Decode(&result)
+
+if result["valid"].(bool) {
+    // License is valid - start your application
+    startApplication()
+} else {
+    // Show error to user
+    showLicenseError(result["message"].(string))
+}
 ```
+
+### Java
+```java
+import java.net.http.*;
+import java.net.URI;
+import org.json.JSONObject;
+
+// Step 1: Prepare the request
+String userLicenseKey = getUserLicenseKey();
+
+JSONObject data = new JSONObject();
+data.put("license_key", userLicenseKey);
+data.put("product", "Your Product Name");
+data.put("instance_id", generateInstanceId());
+
+// Step 2: Validate the license
+HttpClient client = HttpClient.newHttpClient();
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://api.licenflow.com/api/v1/validate-license"))
+    .header("Content-Type", "application/json")
+    .POST(HttpRequest.BodyPublishers.ofString(data.toString()))
+    .build();
+
+HttpResponse<String> response = client.send(request, 
+    HttpResponse.BodyHandlers.ofString());
+
+JSONObject result = new JSONObject(response.body());
+
+if (result.getBoolean("valid")) {
+    // License is valid - start your application
+    startApplication();
+} else {
+    // Show error to user
+    showLicenseError(result.getString("message"));
+}
+```
+
+> **Important Security Note:** 
+> - The `license_key` should come from your end user (not hardcoded)
+> - The `product` name is hardcoded in your distributed software
+> - Never include your LicenFlow API keys or authentication tokens in distributed software
 
 ## Next Steps
 - Review [API Documentation](overview.md) for detailed endpoint information
