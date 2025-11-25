@@ -51,7 +51,8 @@ fetch('https://api.licenflow.com/api/v1/validate-license', {
   body: JSON.stringify({
     license_key: userLicenseKey,
     product: productName,
-    instance_id: instanceId
+    instance_id: instanceId,
+    feature_used: 'Core Application'  // Optional: Track which feature is being used
   })
 })
 .then(res => res.json())
@@ -81,7 +82,8 @@ const response = await axios.post(
   {
     license_key: userLicenseKey,
     product: productName,
-    instance_id: instanceId
+    instance_id: instanceId,
+    feature_used: 'Core Application'  // Optional: Track which feature is being used
   }
 );
 
@@ -105,7 +107,8 @@ $instanceId = generateInstanceId();
 $data = [
     'license_key' => $userLicenseKey,
     'product' => $productName,
-    'instance_id' => $instanceId
+    'instance_id' => $instanceId,
+    'feature_used' => 'Core Application'  // Optional: Track which feature is being used
 ];
 
 // Step 2: Validate the license
@@ -139,7 +142,8 @@ instance_id = generate_instance_id()
 data = {
     'license_key': user_license_key,
     'product': product_name,
-    'instance_id': instance_id
+    'instance_id': instance_id,
+    'feature_used': 'Core Application'  # Optional: Track which feature is being used
 }
 
 # Step 2: Validate the license
@@ -173,6 +177,7 @@ data := map[string]string{
     "license_key": userLicenseKey,
     "product":     "Your Product Name",
     "instance_id": generateInstanceId(),
+    "feature_used": "Core Application",  // Optional: Track which feature is being used
 }
 
 // Step 2: Validate the license
@@ -209,6 +214,7 @@ JSONObject data = new JSONObject();
 data.put("license_key", userLicenseKey);
 data.put("product", "Your Product Name");
 data.put("instance_id", generateInstanceId());
+data.put("feature_used", "Core Application");  // Optional: Track which feature is being used
 
 // Step 2: Validate the license
 HttpClient client = HttpClient.newHttpClient();
