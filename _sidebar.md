@@ -1,4 +1,5 @@
 * [Getting Started](getting-started.md)
+* [Direct Payment Collection](direct-payment.md)
 * [Integration Guide](integration.md)
 * [Best Practices](best-practices.md)
 * [Troubleshooting](troubleshooting.md)

@@ -8,7 +8,10 @@ LicenFlow is a comprehensive license management system. This documentation provi
 ### 1. Getting Started
 - [Quick Start Guide](getting-started.md) - Begin your integration with LicenFlow API
 
-### 2. Integration Guides
+### 2. Payment & Monetization
+- [Direct Payment Collection](direct-payment.md) - Generate payment links and sell licenses directly to customers
+
+### 3. Integration Guides
 - [Integration Guide](integration.md) - Detailed integration steps and code samples
 - [Best Practices](best-practices.md) - Recommended practices for secure and efficient integration
 - [Troubleshooting Guide](troubleshooting.md) - Common issues and solutions
