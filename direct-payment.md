@@ -5,7 +5,7 @@
 The Direct Payment Collection API allows developers to generate payment links for their customers to purchase licenses directly. This feature enables:
 
 - **Automated License Delivery**: Licenses are automatically created upon successful payment
-- **Bitcoin Payments**: Integration with LNbits for Bitcoin/Lightning Network payments
+- **Bitcoin Payments**: Integration with Lightning Network for BitCoin BTC payments
 - **Commission Tracking**: Automatic calculation and tracking of platform commissions
 - **Renewal Management**: Support for subscription-based and one-time payments
 
@@ -206,7 +206,7 @@ Authorization: Bearer YOUR_API_TOKEN
    - Bitcoin Lightning invoice QR code
 4. **Customer pays** via Bitcoin Lightning Network
 5. **System automatically**:
-   - Confirms payment via LNbits webhook
+   - Confirms payment via LN Lightning Network BitCoin BTC webhook
    - Generates new license or renews existing license
    - Records transaction and commission
    - Sends license key to customer email
