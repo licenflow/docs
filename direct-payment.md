@@ -124,7 +124,7 @@ To create a payment link for renewing an existing license:
   "product_id": 1,
   "amount": 100.00,
   "end_user_email": "customer@example.com",
-  "license_id": 42,
+  "license_key": "XXXX-XXXX-XXXX-XXXX",
   "metadata": {
     "renewal": true
   }
@@ -132,7 +132,8 @@ To create a payment link for renewing an existing license:
 ```
 
 **Parameters:**
-- `license_id` (optional): Existing license ID to renew
+- `license_key` (optional): Existing license key to renew (preferred)
+- `license_id` (optional): Existing license ID to renew (legacy support)
 - All other parameters same as new purchase
 
 **Response:**

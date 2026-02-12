@@ -108,21 +108,22 @@ Accept: application/json
     },
     "updated_at": "2025-05-13T09:22:25.000000Z",
     "created_at": "2025-05-13T09:22:25.000000Z",
-    "id": 6   // <--- This is the ID you must use in the URL for updates
+    "id": 6,
+    "key": "XXXX-XXXX-XXXX-XXXX"   // <--- This is the Key you must use in the URL for updates
   },
   "message": "License created successfully"
 }
 ```
 
-> **Tip:** Save the `key` from the response for license validation, and the `id` for future updates or deletions.
+> **Tip:** Save the `key` from the response for license validation, updates, and deletions.
 
 ### Update a License
 
-To update an existing license, use the `PUT` method and specify the license `id` in the URL. Only the license owner or an admin can update a license.
+To update an existing license, use the `PUT` method and specify the license `key` in the URL. Only the license owner or an admin can update a license.
 
 **Headers:**
 ```
-PUT /api/licenses/4
+PUT /api/licenses/XXXX-XXXX-XXXX-XXXX
 Authorization: Bearer YOUR_API_KEY
 Content-Type: application/json
 Accept: application/json
@@ -147,8 +148,8 @@ Accept: application/json
 ```json
 {
   "data": {
-    "id": 4, // <--- This is the license ID used in the URL
-    "key": "92D7D3-EA259C-10EFFB-1E5B68",
+    "id": 4,
+    "key": "92D7D3-EA259C-10EFFB-1E5B68", // <--- This is the license Key used in the URL
     "user_id": 1,
     "product": "WordPress Plugin",
     "status": "active",
@@ -170,4 +171,4 @@ Accept: application/json
 }
 ```
 
-> **Note:** The `id` field in the response is the one you must use in the URL for future updates or deletions of this license. 
+> **Note:** The `key` field in the response is the one you must use in the URL for future updates or deletions of this license. 

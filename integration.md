@@ -37,11 +37,21 @@
 
 These examples show how to validate a license key in your distributed software. The license key should be provided by your end user.
 
+> **⚠️ CRITICAL: Product Name Must Match Exactly**
+> The `product` parameter must match the EXACT product name from your license in LicenFlow.
+> Valid values include: `Desktop Application`, `Web Application`, `Mobile Application`, `WordPress Plugin`, or `SaaS Application`.
+> You can find your product name by:
+> 1. Logging into your LicenFlow dashboard
+> 2. Going to the Licenses page
+> 3. Looking at the "Product" column for your license
+>
+> **Common Error:** Using custom names that don't match your license's product field will result in a `400 Bad Request` error with message: `"Invalid license key or product"`
+
 ### REST API (Vanilla JavaScript)
 ```javascript
 // Step 1: Get user's license key
-const userLicenseKey = getUserLicenseKey(); 
-const productName = 'Your Product Name';
+const userLicenseKey = getUserLicenseKey();
+const productName = 'Desktop Application';  // ⚠️ MUST match your license's product name EXACTLY
 const instanceId = generateInstanceId();
 
 // Step 2: Validate the license
@@ -50,7 +60,7 @@ fetch('https://api.licenflow.com/api/v1/validate-license', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     license_key: userLicenseKey,
-    product: productName,
+    product: productName,  // ⚠️ This must be an exact match!
     instance_id: instanceId,
     feature_used: 'Core Application'  // Optional: Track which feature is being used
   })
@@ -73,7 +83,7 @@ const axios = require('axios');
 
 // Step 1: Get user's license key
 const userLicenseKey = getUserLicenseKey();
-const productName = 'Your Product Name';
+const productName = 'Desktop Application';  // ⚠️ MUST match your license's product name EXACTLY
 const instanceId = generateInstanceId();
 
 // Step 2: Validate the license
@@ -81,7 +91,7 @@ const response = await axios.post(
   'https://api.licenflow.com/api/v1/validate-license',
   {
     license_key: userLicenseKey,
-    product: productName,
+    product: productName,  // ⚠️ This must be an exact match!
     instance_id: instanceId,
     feature_used: 'Core Application'  // Optional: Track which feature is being used
   }
@@ -101,12 +111,12 @@ if (response.data.valid) {
 <?php
 // Step 1: Prepare the request data
 $userLicenseKey = getUserLicenseKey();
-$productName = 'Your Product Name';
+$productName = 'Desktop Application';  // ⚠️ MUST match your license's product name EXACTLY
 $instanceId = generateInstanceId();
 
 $data = [
     'license_key' => $userLicenseKey,
-    'product' => $productName,
+    'product' => $productName,  // ⚠️ This must be an exact match!
     'instance_id' => $instanceId,
     'feature_used' => 'Core Application'  // Optional: Track which feature is being used
 ];
@@ -136,12 +146,12 @@ import requests
 
 # Step 1: Prepare the request data
 user_license_key = get_user_license_key()
-product_name = 'Your Product Name'
+product_name = 'Desktop Application'  # ⚠️ MUST match your license's product name EXACTLY
 instance_id = generate_instance_id()
 
 data = {
     'license_key': user_license_key,
-    'product': product_name,
+    'product': product_name,  # ⚠️ This must be an exact match!
     'instance_id': instance_id,
     'feature_used': 'Core Application'  # Optional: Track which feature is being used
 }
@@ -175,7 +185,7 @@ userLicenseKey := getUserLicenseKey()
 
 data := map[string]string{
     "license_key": userLicenseKey,
-    "product":     "Your Product Name",
+    "product":     "Desktop Application",  // ⚠️ MUST match your license's product name EXACTLY
     "instance_id": generateInstanceId(),
     "feature_used": "Core Application",  // Optional: Track which feature is being used
 }
@@ -212,7 +222,7 @@ String userLicenseKey = getUserLicenseKey();
 
 JSONObject data = new JSONObject();
 data.put("license_key", userLicenseKey);
-data.put("product", "Your Product Name");
+data.put("product", "Desktop Application");  // ⚠️ MUST match your license's product name EXACTLY
 data.put("instance_id", generateInstanceId());
 data.put("feature_used", "Core Application");  // Optional: Track which feature is being used
 
@@ -244,7 +254,7 @@ if (result.getBoolean("valid")) {
 > - Never include your LicenFlow API keys or authentication tokens in distributed software
 
 ## Next Steps
-- Review [API Documentation](overview.md) for detailed endpoint information
+- Review [API Documentation](getting-started.md) for detailed endpoint information
 - Check [Best Practices](best-practices.md) for integration recommendations
 - Consult [Troubleshooting Guide](troubleshooting.md) for error handling and common issues
 
@@ -364,13 +374,16 @@ The response will include the created license:
     "message": "License created successfully"
 }
 ```
+<p>
+    <strong>Note:</strong> The `key` field in the response is the one you must use in the URL for future updates or deletions of this license.
+</p>
 
 ### Updating a License
 
-To update an existing license, send a PUT request to `/api/licenses/{id}` with the fields you want to update:
+To update an existing license, send a PUT request to `/api/licenses/{key}` with the fields you want to update:
 
 ```json
-PUT /api/licenses/15
+PUT /api/licenses/XXXX-XXXX-XXXX-XXXX
 {
   "product": "Web Application",
   "license_type": "subscription",
@@ -422,26 +435,23 @@ After validating a license, you may want to control which devices or users are a
 ### Purpose
 License activation allows you to register ("activate") a license on a specific device or instance, and deactivation allows you to release that activation. Each activation is tracked as an "instance". You can view and manage all active instances for a license from the LicenFlow portal, and you can also deactivate (disconnect) any instance via the API or the portal. This gives your customers full control over their license usage.
 
-> **Note:** The maximum number of allowed activations (instance limit) is configurable both via the API and from the LicenFlow portal. This allows you to adjust the limit according to your business needs.
-
-### Activate a License Instance
-
-**Endpoint:**
-```
-POST /api/licenses/activate
-```
-
-**Headers:**
-```
+> **Note:** To update an existing license, use the `PUT` method and specify the license `key` in the URL. Only the license owner or an admin can update a license. Here is an example:
+</p>
+<p class="text-gray-600 mb-2">Headers:</p>
+<div class="bg-gray-100 p-4 rounded-md font-mono text-sm mb-4">
+<pre>
+PUT /api/licenses/XXXX-XXXX-XXXX-XXXX
 Authorization: Bearer YOUR_API_KEY
 Content-Type: application/json
-```
+Accept: application/json
+</pre>
+</div>
 
 **Request body:**
 ```json
 {
   "license_key": "XXXX-XXXX-XXXX-XXXX",
-  "product": "Your Product Name",
+  "product": "Desktop Application",
   "instance_name": "My_PC"
 }
 ```
